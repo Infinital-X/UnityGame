@@ -9,15 +9,21 @@ public class CameraScript : MonoBehaviour
     private Vector3 cameraOffset; 
     private Vector3 initialAngles; 
     private Vector3 initialOffset;
+    private bool allowMouseInput = true;
 
     void Start()
     {
         initialAngles = cameraAngles = transform.eulerAngles;
         initialOffset = cameraOffset = transform.position - cameraAnchor.transform.position;
     }
-
+    public void ToggleMouseInput()
+    {
+        allowMouseInput = !allowMouseInput;
+    }
     void Update()
     {
+        if (allowMouseInput)
+        {
         cameraAngles.y += Input.GetAxis("Mouse X");
         cameraAngles.x -= Input.GetAxis("Mouse Y");
 
@@ -47,6 +53,7 @@ public class CameraScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.V))
         {
             cameraOffset = (cameraOffset == Vector3.zero) ? initialOffset : Vector3.zero;
+        }
         }
     }
 
